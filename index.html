@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+    <title>Hello Praveen! 😊</title>
+    <style>
+        body {
+            overflow: hidden;
+            background-color: black;
+        }
+
+        .container {
+            height: 90vh;
+            width: 100vw;
+            display: flex;
+            color: white;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .main form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #search {
+            padding: 10px 10px;
+            width: 30vw;
+            min-width: 10vw;
+            height: 5vh;
+            border-radius: 30px;
+            outline: none;
+            border: none;
+            color: black;
+            padding-left: 25px;
+        }
+
+        #search::placeholder {
+            color: black;
+            font-family: 'Montserrat', sans-serif;
+
+        }
+
+        .main form button {
+            width: 100px;
+            height: 40px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            margin: 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #Quote {
+            color: white;
+            position: relative;
+            bottom: 20px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        #myVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        #Quote span {
+            font-size: 0.8rem;
+            color: grey;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="myVideo" autoplay loop muted></video>
+    <div class="container">
+        <section class="main">
+            <h1 id="greeting"></h1>
+
+            <form action="https://www.google.com/search" method="get">
+                <input id="search" name="q" placeholder="Search on Google" />
+                <button type="submit">Search</button>
+        </section>
+        </form>
+    </div>
+
+    <p id="Quote">
+    </p>
+</body>
+
+<script>
+    const date = new Date();
+    const hour = date.getHours();
+    const greetingText = document.getElementById("greeting");
+    const Quote = document.getElementById("Quote");
+    const video = document.querySelector("#myVideo")
+
+    function getRandomNumber() {
+        return Math.floor(Math.random() * 12) + 1; 
+    }
+
+    // video_src = "C:/Users/Praveen/Desktop/Projects/Chrome_homepage/Background-" + getRandomNumber() + ".mp4"
+    video_src = "./Background-" + getRandomNumber() + ".mp4"
+    video.src = video_src;
+    console.log(video_src)
+    
+    let greeting;
+    
+    if (hour < 12) {
+        greeting = "Good Morning";
+    } else if (hour >= 12 && hour <= 17) {
+        greeting = "Good Afternoon";
+    } else {
+        greeting = "Good Evening";
+    }
+    greetingText.innerText = greeting + " Praveen"
+
+        fetch("https://api.quotable.io/random").then(response => response.json()).then(data => { Quote.innerHTML = data["content"] + '<br>' + "<span>" + data["author"] + "<span/>" }).catch(error => { Quote.innerText = "Error Occured While Trying to fetch quote 🙃" })
+</script>
+
+
+</html>
